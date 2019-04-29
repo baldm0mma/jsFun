@@ -23,10 +23,8 @@ const kittyPrompts = {
   orangeKittyNames() {
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.filter(el => el.color === 'orange').map(el => el.name);
     return result;
-
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -34,7 +32,7 @@ const kittyPrompts = {
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a, b) => b.age - a.age);
     return result;
 
     // Annotation:
@@ -55,24 +53,21 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.map(el => {
+      el.age = el.age + 2;
+      return el;
+    });
     return result;
   }
 };
 
 
 
-
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
 
 
 
@@ -86,9 +81,19 @@ const clubPrompts = {
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    
+    return clubs.reduce((acc, currentClub) => {
+      currentClub.members.forEach(name => {
+        console.log('Doesnt Exist? ', !acc[name])
+        if (!acc[name]) {
+          acc[name] = [];
+        }
+        console.log('acc before club: ', acc)
+        acc[name].push(currentClub.club);
+        console.log('acc: ', acc)
+      });
+      return acc;
+    }, {});
 
     // Annotation:
     // Write your annotation here as a comment
@@ -97,17 +102,11 @@ const clubPrompts = {
 
 
 
-
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
 
 
 
@@ -123,8 +122,12 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    return mods.map(obj => {
+      return {
+        mod: obj.mod,
+        studentsPerInstructor: obj.students / obj.instructors
+      };
+    });
 
     // Annotation:
     // Write your annotation here as a comment
