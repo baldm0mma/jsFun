@@ -191,10 +191,9 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = cakes.filter(el => {
-      if (el.inStock > 0) {
-        console.log('1', el);
-        return el;
+    const result = cakes.filter(cake => {
+      if (cake.inStock > 0) {
+        return cake;
       }
     });
     return result;
@@ -207,7 +206,9 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((totalCakes, cake) => {
+      return totalCakes + cake.inStock;
+    }, 0);
     return result;
 
     // Annotation:
@@ -219,7 +220,16 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((ingredients, cake) => {
+      cake.toppings.forEach(topping => {
+        if (!ingredients.includes(topping)) {
+          ingredients.push(topping);
+        }
+      });
+      return ingredients;
+    }, []);
+    
+    console.log('TCL: allToppings -> result', result);
     return result;
 
     // Annotation:
@@ -237,7 +247,16 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((groceryList, ingredient) => {
+      ingredient.toppings.forEach(topping => {
+        if (!groceryList.topping) {
+          groceryList.topping = 1;
+        } else {
+          groceryList.topping += 1;
+        }
+      });
+      return groceryList;
+    }, {});
     return result;
 
     // Annotation:
