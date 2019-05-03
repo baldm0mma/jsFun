@@ -84,13 +84,10 @@ const clubPrompts = {
     
     return clubs.reduce((acc, currentClub) => {
       currentClub.members.forEach(name => {
-        console.log('Doesnt Exist? ', !acc[name])
         if (!acc[name]) {
           acc[name] = [];
         }
-        console.log('acc before club: ', acc)
         acc[name].push(currentClub.club);
-        console.log('acc: ', acc)
       });
       return acc;
     }, {});
@@ -161,7 +158,12 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.map(item => {
+      return {
+        flavor: item.cakeFlavor,
+        inStock: item.inStock
+      }
+    });
     return result;
 
     // Annotation:
@@ -189,7 +191,12 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(el => {
+      if (el.inStock > 0) {
+        console.log('1', el);
+        return el;
+      }
+    });
     return result;
 
     // Annotation:
