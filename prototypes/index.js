@@ -229,7 +229,6 @@ const cakePrompts = {
       return ingredients;
     }, []);
     
-    console.log('TCL: allToppings -> result', result);
     return result;
 
     // Annotation:
@@ -249,10 +248,10 @@ const cakePrompts = {
 
     const result = cakes.reduce((groceryList, ingredient) => {
       ingredient.toppings.forEach(topping => {
-        if (!groceryList.topping) {
-          groceryList.topping = 1;
+        if (!groceryList[topping]) {
+          groceryList[topping] = 1;
         } else {
-          groceryList.topping += 1;
+          groceryList[topping] += 1;
         }
       });
       return groceryList;
