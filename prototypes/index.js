@@ -640,7 +640,7 @@ const astronomyPrompts = {
     
     return result;
 
-    // Annotation:
+    // Annotation: 
     // Write your annotation here as a comment
   }
 };
@@ -660,7 +660,13 @@ const ultimaPrompts = {
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = characters.reduce((allDamage, hero) => {
+      hero.weapons.forEach(weapon => {
+        allDamage += weapons[weapon].damage;
+      });
+      return allDamage;
+    }, 0);
+
     return result;
 
     // Annotation:
@@ -672,7 +678,16 @@ const ultimaPrompts = {
     // Return the sum damage and total range for each character as an object. 
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = characters.map(hero => {
+      const wObj = Object.keys(weapons).reduce((acc, currWeapon) => {
+        if (hero.weapons.includes(currWeapon)) {
+          acc.damage += weapons[currWeapon].damage;
+          acc.range += weapons[currWeapon].range;
+        }
+        return acc;
+      }, {damage: 0, range: 0});
+      return { [hero.name]: wObj };
+    });
     return result;
 
     // Annotation:
