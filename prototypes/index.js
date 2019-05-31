@@ -540,7 +540,7 @@ const bossPrompts = {
           return totalLoyalty;
         }, 0),
       };
-      acc.push(bossss);
+      acc.push(bossss); 
       return acc;
     }, []);
 
@@ -716,7 +716,13 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((finalTitles, movie) => {
+      finalTitles[movie.title] = movie.dinos
+        .filter(dino => dinosaurs[dino].isAwesome)
+        .length;
+      return finalTitles;
+    }, {});
+
     return result;
 
     // Annotation:
