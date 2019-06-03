@@ -458,18 +458,16 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    const result = instructors.reduce((acc, curr) => {
-      if (!acc[curr.name]) {
-        acc[curr.name] = curr.teaches.reduce((acc2, curr2) => {
-          cohorts.forEach(cohort => {
-            if (cohort.curriculum.includes(curr2) && !acc2.includes(cohort.module)) {
-              acc2.push(cohort.module);
-            }
-          });
-          return acc2.sort();
-        }, []);
-      }
-      return acc;
+    const result = instructors.reduce((finalObj, teacher) => {
+      finalObj[teacher.name] = cohorts.reduce((modsTaught, coho) => {
+        teacher.teaches.forEach(subject => {
+          if (coho.curriculum.includes(subject) && !modsTaught.includes(coho.module)) {
+            modsTaught.push(coho.module);
+          }
+        });
+        return modsTaught;
+      }, []);
+      return finalObj;
     }, {});
 
     return result;
@@ -717,9 +715,7 @@ const dinosaurPrompts = {
     // }
 
     const result = movies.reduce((finalTitles, movie) => {
-      finalTitles[movie.title] = movie.dinos
-        .filter(dino => dinosaurs[dino].isAwesome)
-        .length;
+      finalTitles[movie.title] = movie.dinos.filter(dino => dinosaurs[dino].isAwesome).length;
       return finalTitles;
     }, {});
 
