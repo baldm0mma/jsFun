@@ -10,7 +10,6 @@ const { constellations, stars } = require('./datasets/astronomy');
 const { weapons, characters } = require('./datasets/ultima');
 const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
-
 // SINGLE DATASETS
 // =================================================================
 
@@ -19,7 +18,9 @@ const kittyPrompts = {
   orangeKittyNames() {
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-    const result = kitties.filter(el => el.color === 'orange').map(el => el.name);
+    const result = kitties
+      .filter(el => el.color === 'orange')
+      .map(el => el.name);
     return result;
     // Annotation:
     // Write your annotation here as a comment
@@ -57,25 +58,23 @@ const kittyPrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
   membersBelongingToClubs() {
     // Create an object whose keys are the names of people, and whose values are
-    // arrays that include the names of the clubs that person is a part of. e.g. 
+    // arrays that include the names of the clubs that person is a part of. e.g.
     // {
     //   Louisa: ['Drama', 'Art'],
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
-    
+
     return clubs.reduce((acc, currentClub) => {
       currentClub.members.forEach(name => {
         if (!acc[name]) {
@@ -91,13 +90,11 @@ const clubPrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: mods from ./datasets/mods
 const modPrompts = {
@@ -123,20 +120,18 @@ const modPrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: cakes from ./datasets/cakes
 const cakePrompts = {
   stockPerCake() {
     // Return an array of objects that include just the flavor of the cake and how
     // much of that cake is in stock e.g.
-    // [ 
+    // [
     //    { flavor: 'dark chocolate', inStock: 15 },
     //    { flavor: 'yellow', inStock: 14 },
     //    ..etc
@@ -146,7 +141,7 @@ const cakePrompts = {
       return {
         flavor: item.cakeFlavor,
         inStock: item.inStock
-      }
+      };
     });
     return result;
 
@@ -185,7 +180,7 @@ const cakePrompts = {
     // Annotation:
     // Write your annotation here as a comment
   },
-  
+
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
@@ -212,7 +207,7 @@ const cakePrompts = {
       });
       return ingredients;
     }, []);
-    
+
     return result;
 
     // Annotation:
@@ -222,11 +217,11 @@ const cakePrompts = {
   groceryList() {
     // I need to make a grocery list. Please give me an object where the keys are
     // each topping, and the values are the amount of that topping I need to buy e.g.
-    // { 
+    // {
     //    'dutch process cocoa': 1,
     //    'toasted sugar': 3,
     //    'smoked sea salt': 3,
-    //    'berries': 2, 
+    //    'berries': 2,
     //    ...etc
     // }
 
@@ -247,13 +242,11 @@ const cakePrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: classrooms from ./datasets/classrooms
 const classPrompts = {
@@ -282,17 +275,21 @@ const classPrompts = {
   totalCapacities() {
     // Create an object where the keys are 'feCapacity' and 'beCapacity',
     // and the values are the total capacity for all classrooms in each program e.g.
-    // { 
+    // {
     //   feCapacity: 110,
     //   beCapacity: 96
     // }
 
     const result = classrooms.reduce((acc, curr) => {
       if (curr.program == 'FE') {
-        !acc.feCapacity ? acc.feCapacity = curr.capacity : acc.feCapacity += curr.capacity;
+        !acc.feCapacity
+          ? (acc.feCapacity = curr.capacity)
+          : (acc.feCapacity += curr.capacity);
       }
       if (curr.program == 'BE') {
-        !acc.beCapacity ? acc.beCapacity = curr.capacity : acc.beCapacity += curr.capacity;
+        !acc.beCapacity
+          ? (acc.beCapacity = curr.capacity)
+          : (acc.beCapacity += curr.capacity);
       }
       return acc;
     }, {});
@@ -313,13 +310,11 @@ const classPrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: breweries from ./datasets/breweries
 const breweryPrompts = {
@@ -347,7 +342,7 @@ const breweryPrompts = {
     // ]
 
     const result = breweries.reduce((final, brewery) => {
-      final.push( { name: brewery.name, beerCount: brewery.beers.length } );
+      final.push({ name: brewery.name, beerCount: brewery.beers.length });
       return final;
     }, []);
 
@@ -362,7 +357,9 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    const result = breweries.map(brewery => brewery.beers.sort((a, b) => b.abv - a.abv)[0]).sort((a, b) => b.abv - a.abv)[0];
+    const result = breweries
+      .map(brewery => brewery.beers.sort((a, b) => b.abv - a.abv)[0])
+      .sort((a, b) => b.abv - a.abv)[0];
     return result;
 
     // Annotation:
@@ -370,29 +367,26 @@ const breweryPrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DOUBLE DATASETS
 // =================================================================
 
 // DATASET: instructors, cohorts from ./datasets/turing
 const turingPrompts = {
-  studentsForEachInstructor() { 
+  studentsForEachInstructor() {
     // Return an array of instructors where each instructor is an object
-    // with a name and the count of students in their module. e.g. 
+    // with a name and the count of students in their module. e.g.
     // [
     //  { name: 'Pam', studentCount: 21 },
     //  { name: 'Robbie', studentCount: 18 }
@@ -406,12 +400,12 @@ const turingPrompts = {
             return curr.studentCount;
           }
           return acc;
-        }, 0),
+        }, 0)
       };
       allInst.push(obj);
       return allInst;
     }, []);
-    
+
     return result;
 
     // Annotation:
@@ -420,23 +414,25 @@ const turingPrompts = {
 
   studentsPerInstructor() {
     // Return an object of how many students per teacher there are in each cohort e.g.
-    // { 
+    // {
     // cohort1806: 9,
     // cohort1804: 10.5
     // }
 
     const result = cohorts.reduce((acc, curr) => {
       if (!acc[`cohort${curr.cohort}`]) {
-        acc[`cohort${curr.cohort}`] = curr.studentCount / instructors.reduce((instAcc, instCurr) => {
-          if (instCurr.module === curr.module) {
-            instAcc++;
-          }
-          return instAcc;
-        }, 0);
+        acc[`cohort${curr.cohort}`] =
+          curr.studentCount /
+          instructors.reduce((instAcc, instCurr) => {
+            if (instCurr.module === curr.module) {
+              instAcc++;
+            }
+            return instAcc;
+          }, 0);
       }
       return acc;
     }, {});
-    
+
     return result;
 
     // Annotation:
@@ -461,7 +457,10 @@ const turingPrompts = {
     const result = instructors.reduce((finalObj, teacher) => {
       finalObj[teacher.name] = cohorts.reduce((modsTaught, coho) => {
         teacher.teaches.forEach(subject => {
-          if (coho.curriculum.includes(subject) && !modsTaught.includes(coho.module)) {
+          if (
+            coho.curriculum.includes(subject) &&
+            !modsTaught.includes(coho.module)
+          ) {
             modsTaught.push(coho.module);
           }
         });
@@ -479,7 +478,7 @@ const turingPrompts = {
   curriculumPerTeacher() {
     // Return an object where each key is a curriculum topic and each value is
     // an array of instructors who teach that topic e.g.:
-    // { 
+    // {
     //   html: [ 'Travis', 'Louisa' ],
     //   css: [ 'Travis', 'Louisa' ],
     //   javascript: [ 'Travis', 'Louisa', 'Christie', 'Will' ],
@@ -507,13 +506,11 @@ const turingPrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: bosses, sidekicks from ./datasets/bosses
 const bossPrompts = {
@@ -536,9 +533,9 @@ const bossPrompts = {
             }
           });
           return totalLoyalty;
-        }, 0),
+        }, 0)
       };
-      acc.push(bossss); 
+      acc.push(bossss);
       return acc;
     }, []);
 
@@ -549,20 +546,18 @@ const bossPrompts = {
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: constellations, stars } from ./datasets/astronomy
 const astronomyPrompts = {
   starsInConstellations() {
     // Return an array of all the stars that appear in any of the constellations
     // listed in the constellations object e.g.
-    // [ 
+    // [
     //   { name: 'Rigel',
     //     visualMagnitude: 0.13,
     //     constellation: 'Orion',
@@ -602,15 +597,14 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = stars.reduce((colorStars, star) => {
-      if (!colorStars[star.color]) {
-        colorStars[star.color] = [star];
-      } else {
-        colorStars[star.color].push(star);
-      }
-      return colorStars;
-    }, {});
-    
+    const result = stars.reduce(
+      (totalStars, star) => {
+        totalStars[star.color].push(star);
+        return totalStars;
+      },
+      { blue: [], white: [], yellow: [], orange: [], red: [] }
+    );
+
     return result;
 
     // Annotation:
@@ -619,42 +613,41 @@ const astronomyPrompts = {
 
   constellationsStarsExistIn() {
     // Return an array of the names of the constellations that the brightest stars are part of e.g.
-    
+
     //  [ "Canis Major",
     //    "Carina",
     //    "Boötes",
     //    "Auriga",
     //    "Orion",
-    //    "Lyra", 
-    //    "Canis Minor", 
-    //    "The Plow", 
-    //    "Orion", 
+    //    "Lyra",
+    //    "Canis Minor",
+    //    "The Plow",
+    //    "Orion",
     //    "The Little Dipper" ]
 
+    const result = stars
+      .sort((a, b) => {
+        return a.visualMagnitude - b.visualMagnitude;
+      })
+      .map(star => star.constellation)
+      .filter(star => star !== '');
 
-    const result = stars.sort((a, b) => {
-      return a.visualMagnitude - b.visualMagnitude;
-    }).map(star => star.constellation).filter(star => star !== '');
-    
     return result;
 
-    // Annotation: 
+    // Annotation:
     // Write your annotation here as a comment
   }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: charaters, weapons from ./datasets/ultima
 const ultimaPrompts = {
   totalDamage() {
-
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
 
@@ -672,39 +665,39 @@ const ultimaPrompts = {
   },
 
   charactersByTotal() {
-
-    // Return the sum damage and total range for each character as an object. 
+    // Return the sum damage and total range for each character as an object.
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
     const result = characters.map(hero => {
-      const wObj = Object.keys(weapons).reduce((acc, currWeapon) => {
-        if (hero.weapons.includes(currWeapon)) {
-          acc.damage += weapons[currWeapon].damage;
-          acc.range += weapons[currWeapon].range;
-        }
-        return acc;
-      }, {damage: 0, range: 0});
+      const wObj = Object.keys(weapons).reduce(
+        (acc, currWeapon) => {
+          if (hero.weapons.includes(currWeapon)) {
+            acc.damage += weapons[currWeapon].damage;
+            acc.range += weapons[currWeapon].range;
+          }
+          return acc;
+        },
+        { damage: 0, range: 0 }
+      );
       return { [hero.name]: wObj };
     });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
-  },
+  }
 };
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: dinosaurs, humans, movies from ./datasets/dinosaurs
 const dinosaurPrompts = {
   countAwesomeDinosaurs() {
-    // Return an object where each key is a movie title and each value is the 
+    // Return an object where each key is a movie title and each value is the
     // number of awesome dinosaurs in that movie. e.g.:
     // {
     //   'Jurassic Park': 5,
@@ -715,7 +708,9 @@ const dinosaurPrompts = {
     // }
 
     const result = movies.reduce((finalTitles, movie) => {
-      finalTitles[movie.title] = movie.dinos.filter(dino => dinosaurs[dino].isAwesome).length;
+      finalTitles[movie.title] = movie.dinos.filter(
+        dino => dinosaurs[dino].isAwesome
+      ).length;
       return finalTitles;
     }, {});
 
@@ -751,7 +746,21 @@ const dinosaurPrompts = {
       }
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((acc, movie) => {
+      acc[movie.director] = {
+        [movie.title]: Math.floor(
+          movie.cast.reduce((acc2, actor) => {
+            Object.keys(humans).forEach(human => {
+              if (human === actor) {
+                acc2 += movie.yearReleased - humans[human].yearBorn;
+              }
+            });
+            return acc2;
+          }, 0) / movie.cast.length
+        )
+      };
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
